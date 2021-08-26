@@ -10,6 +10,7 @@ import openpyxl
 def btncmd():
     # progressbar.pack()
     files = []
+    # 수정
     if len(txt_dest_path1.get()) != 0:
         files.append({"type": "쿠팡", "file": txt_dest_path1.get()})
     if len(txt_dest_path2.get()) != 0:
@@ -38,7 +39,7 @@ def open_file(type):
                                       filetypes=(("excel 파일", ".xlsx .xls"), ("모든 파일", "*.*")))
                                       #initialdir=r"C:/Users")
     print("file : ", file)
-
+    # 수정
     if type == "쿠팡":
         txt_dest_path1.delete(0, END)
         txt_dest_path1.insert(0, file)
@@ -101,6 +102,11 @@ txt_dest_path4 = Entry(path_frame4)
 txt_dest_path4.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
 btn_dest_path4 = Button(path_frame4, text="찾아보기", width=10, command=partial(open_file, "네이버"))
 btn_dest_path4.pack(side="right", padx=5, pady=5)
+
+# 수정
+
+
+
 
 path_frame = LabelFrame(root, text="저장경로")
 path_frame.pack(fill="both", padx=5, pady=5)

@@ -26,6 +26,7 @@ def excel_trans_print(files, output_path, p_var, progress_bar):
 
     count = 0
     for i, file in enumerate(files):
+        # 수정
         print("file : ", file)
         if file["type"] == "쿠팡":
             json_file_name = "./mapping/coupang.json"
