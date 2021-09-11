@@ -36,6 +36,12 @@ def excel_trans_print(files, output_path, p_var, progress_bar):
             json_file_name = "./mapping/wemakeprice.json"
         elif file["type"] == "네이버":
             json_file_name = "./mapping/naver.json"
+        elif file["type"] == "티몬":
+            json_file_name = "./mapping/tmon.json"
+        elif file["type"] == "롯데온":
+            json_file_name = "./mapping/lotte.json"
+        elif file["type"] == "ESM+":
+            json_file_name = "./mapping/esm+.json"
 
         with open(resource_path(json_file_name), 'r', encoding='UTF-8') as json_file:
             json_data = json.load(json_file)

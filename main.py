@@ -19,6 +19,12 @@ def btncmd():
         files.append({"type": "위메프", "file": txt_dest_path3.get()})
     if len(txt_dest_path4.get()) != 0:
         files.append({"type": "네이버", "file": txt_dest_path4.get()})
+    if len(txt_dest_path5.get()) != 0:
+        files.append({"type": "티몬", "file": txt_dest_path5.get()})
+    if len(txt_dest_path6.get()) != 0:
+        files.append({"type": "롯데온", "file": txt_dest_path6.get()})
+    if len(txt_dest_path7.get()) != 0:
+        files.append({"type": "ESM+", "file": txt_dest_path7.get()})
 
     if len(files) == 0:
         tkinter.messagebox.showwarning("경고", "파일을 한 개 이상 추가하세요.")
@@ -52,7 +58,15 @@ def open_file(type):
     elif type == "네이버":
         txt_dest_path4.delete(0, END)
         txt_dest_path4.insert(0, file)
-
+    elif type == "티몬":
+        txt_dest_path5.delete(0, END)
+        txt_dest_path5.insert(0, file)
+    elif type == "롯데온":
+        txt_dest_path6.delete(0, END)
+        txt_dest_path6.insert(0, file)
+    elif type == "ESM+":
+        txt_dest_path7.delete(0, END)
+        txt_dest_path7.insert(0, file)
 
 def browse_dest_path():
     global  folder_selected
@@ -65,7 +79,7 @@ def browse_dest_path():
 root = Tk()
 root.title("TOGGLE 변환 프로그램")
 
-root.geometry("640x480")  # 가로 * 세로
+root.geometry("640x800")  # 가로 * 세로
 root.resizable(False, False)
 
 main_frame = Frame(root, height=20)
@@ -102,6 +116,30 @@ txt_dest_path4 = Entry(path_frame4)
 txt_dest_path4.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
 btn_dest_path4 = Button(path_frame4, text="찾아보기", width=10, command=partial(open_file, "네이버"))
 btn_dest_path4.pack(side="right", padx=5, pady=5)
+
+# 티몬
+path_frame5 = LabelFrame(main_frame, text="티몬")
+path_frame5.pack(fill="both")
+txt_dest_path5 = Entry(path_frame5)
+txt_dest_path5.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
+btn_dest_path5 = Button(path_frame5, text="찾아보기", width=10, command=partial(open_file, "티몬"))
+btn_dest_path5.pack(side="right", padx=5, pady=5)
+
+# 롯데온
+path_frame6 = LabelFrame(main_frame, text="롯데온")
+path_frame6.pack(fill="both")
+txt_dest_path6 = Entry(path_frame6)
+txt_dest_path6.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
+btn_dest_path6 = Button(path_frame6, text="찾아보기", width=10, command=partial(open_file, "롯데온"))
+btn_dest_path6.pack(side="right", padx=5, pady=5)
+
+# ESM+
+path_frame7 = LabelFrame(main_frame, text="ESM+")
+path_frame7.pack(fill="both")
+txt_dest_path7 = Entry(path_frame7)
+txt_dest_path7.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
+btn_dest_path7 = Button(path_frame7, text="찾아보기", width=10, command=partial(open_file, "ESM+"))
+btn_dest_path7.pack(side="right", padx=5, pady=5)
 
 # 수정
 
