@@ -33,7 +33,7 @@ def btncmd():
         tkinter.messagebox.showwarning("경고", "저장경로를 선택하세요.")
         return
     try:
-        excel_trans.excel_trans_print(files, folder_selected, p_var, progress_bar)
+        excel_trans.excel_trans_print(files, folder_selected, p_var, progress_bar, product_info_txt_dest_path.get())
         tkinter.messagebox.showinfo("알림", "변환 완료")
     except Exception as e:
         tkinter.messagebox.showerror("에러", e)
@@ -67,6 +67,9 @@ def open_file(type):
     elif type == "ESM+":
         txt_dest_path7.delete(0, END)
         txt_dest_path7.insert(0, file)
+    elif type == "상품정보":
+        product_info_txt_dest_path.delete(0, END)
+        product_info_txt_dest_path.insert(0, file)
 
 def browse_dest_path():
     global  folder_selected
@@ -142,6 +145,14 @@ btn_dest_path7 = Button(path_frame7, text="찾아보기", width=10, command=part
 btn_dest_path7.pack(side="right", padx=5, pady=5)
 
 # 수정
+product_info_path_frame = LabelFrame(root, text="상품파일경로")
+product_info_path_frame.pack(fill="both", padx=5, pady=5)
+
+product_info_txt_dest_path = Entry(product_info_path_frame)
+product_info_txt_dest_path.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
+
+product_info_btn_dest_path = Button(product_info_path_frame, text="찾아보기", width=10, command=partial(open_file, "상품정보"))
+product_info_btn_dest_path.pack(side="right", padx=5, pady=5)
 
 
 

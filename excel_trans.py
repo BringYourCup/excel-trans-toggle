@@ -17,12 +17,22 @@ def resource_path(relative_path):
     return os.path.join(os.path.abspath("."), relative_path)
 
 
-def excel_trans_print(files, output_path, p_var, progress_bar):
+def excel_trans_print(files, output_path, p_var, progress_bar, product_info_file):
     print("files : ", files)
     with open(resource_path("./mapping/toggle.json"), 'r', encoding='UTF-8') as wms_file:
         wms_data = json.load(wms_file)
 
     new_df = pd.DataFrame(columns=wms_data["header"])
+    product_df_flag = False
+    # 상품 정보 엑셀 정보 로딩
+    if product_info_file:
+        app1 = xw.App(visible=False)
+        wb1 = xw.Book(product_info_file)
+        sheet1 = wb1.sheets[0]
+        product_df = sheet1.range('A1').options(pd.DataFrame, index=False, expand='table').value
+        app1.quit()
+        product_df = product_df.replace(np.nan, '', regex=True)
+        product_df_flag = True
 
     count = 0
     for i, file in enumerate(files):
@@ -72,6 +82,19 @@ def excel_trans_print(files, output_path, p_var, progress_bar):
                     # print("literal : ", json_data["mapping"][header]["literal"])
                     item = json_data["mapping"][header]["literal"]
                     tmp_row.append(item)
+                elif "fromProductInfo" in json_data["mapping"][header]:
+                    # 상품 정보 엑셀에서 데이터 사용하도록 셋팅되어 있을 때 타는 코드
+                    # 사이트엑셀기준은 각 쇼핑몰 컬럼 중에 따로 셋팅하는 코드를 담고 있는 컬럼 정보를 기입(예: 네이버 -> 판매자 내부코드1
+                    # 상품정보엑셀컬럼 는 사이트엑셀기준 코드가 일치할 때 상품 정보 엑셀에서 꺼내갈 컬럼
+                    # 정리하면 "사이트엑셀기준은" 에 담길 데이터는 쇼핑몰엑셀에 따로 적을 내부 코드
+                    # 상품정보엑셀컬럼은 상품 정보 엑셀에서 가져다 쓸 컬럼
+                    if product_df_flag and row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]]:
+                        item = product_df[product_df["테스트코드"] == row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]]][json_data["mapping"][header]["fromProductInfo"]["상품정보엑셀컬럼"]].item()
+                        print("item : ", item)
+                        tmp_row.append(item)
+                    elif "alternative" in json_data["mapping"][header]:
+                        item = row[json_data["mapping"][header]["alternative"]]
+                        tmp_row.append(item)
                 elif "date" in json_data["mapping"][header]:
                     print("aaaaa")
                     print("literal : ", datetime.date.today())
