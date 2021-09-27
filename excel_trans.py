@@ -33,7 +33,6 @@ def excel_trans_print(files, output_path, p_var, progress_bar, product_info_file
         app1.quit()
         product_df = product_df.replace(np.nan, '', regex=True)
         product_df_flag = True
-
     count = 0
     for i, file in enumerate(files):
         # 수정
@@ -87,11 +86,34 @@ def excel_trans_print(files, output_path, p_var, progress_bar, product_info_file
                     # 사이트엑셀기준은 각 쇼핑몰 컬럼 중에 따로 셋팅하는 코드를 담고 있는 컬럼 정보를 기입(예: 네이버 -> 판매자 내부코드1
                     # 상품정보엑셀컬럼 는 사이트엑셀기준 코드가 일치할 때 상품 정보 엑셀에서 꺼내갈 컬럼
                     # 정리하면 "사이트엑셀기준은" 에 담길 데이터는 쇼핑몰엑셀에 따로 적을 내부 코드
-                    # 상품정보엑셀컬럼은 상품 정보 엑셀에서 가져다 쓸 컬럼
-                    if product_df_flag and row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]]:
-                        item = product_df[product_df["테스트코드"] == row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]]][json_data["mapping"][header]["fromProductInfo"]["상품정보엑셀컬럼"]].item()
-                        print("item : ", item)
-                        tmp_row.append(item)
+                    # 상품정보엑셀컬럼은 상품 정보 엑셀에서 가져다 쓸 상품명 컬럼
+                    # 옵션정보엑셀컬럼은 상품 정보 엑셀에서 가져다 쓸 옵션명 컬럼
+                    if product_df_flag and row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]] and "상품정보엑셀컬럼" in json_data["mapping"][header]["fromProductInfo"]:
+                        if len(product_df[product_df["상품코드"] == row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]]][json_data["mapping"][header]["fromProductInfo"]["상품정보엑셀컬럼"]]) > 0:
+                            item = product_df[
+                                product_df["상품코드"] == row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]]][
+                                    json_data["mapping"][header]["fromProductInfo"]["상품정보엑셀컬럼"]].iloc[0]
+                            print("item : ", item)
+                            tmp_row.append(item)
+                        elif "alternative" in json_data["mapping"][header]:
+                            item = row[json_data["mapping"][header]["alternative"]]
+                            tmp_row.append(item)
+                        else:
+                            raise Exception('상품정보 매핑 에러')
+                    elif product_df_flag and row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]] and "옵션정보엑셀컬럼" in json_data["mapping"][header]["fromProductInfo"]:
+                        if len(product_df[product_df["옵션코드"] == row[
+                            json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]]][
+                                   json_data["mapping"][header]["fromProductInfo"]["옵션정보엑셀컬럼"]]) > 0:
+                            item = product_df[
+                                product_df["옵션코드"] == row[json_data["mapping"][header]["fromProductInfo"]["사이트엑셀기준"]]][
+                                json_data["mapping"][header]["fromProductInfo"]["옵션정보엑셀컬럼"]].iloc[0]
+                            print("item : ", item)
+                            tmp_row.append(item)
+                        elif "alternative" in json_data["mapping"][header]:
+                            item = row[json_data["mapping"][header]["alternative"]]
+                            tmp_row.append(item)
+                        else:
+                            raise Exception('옵션정보 매핑 에러')
                     elif "alternative" in json_data["mapping"][header]:
                         item = row[json_data["mapping"][header]["alternative"]]
                         tmp_row.append(item)
