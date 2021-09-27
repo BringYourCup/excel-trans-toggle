@@ -104,8 +104,8 @@ txt_dest_path2.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
 btn_dest_path2 = Button(path_frame2, text="찾아보기", width=10, command=partial(open_file, "11번가"))
 btn_dest_path2.pack(side="right", padx=5, pady=5)
 
-# 위메프
-path_frame3 = LabelFrame(main_frame, text="위메프")
+# 위메프 - 수정 발송 정보 OR 출고내역서 삽입
+path_frame3 = LabelFrame(main_frame, text="위메프_발송정보")
 path_frame3.pack(fill="both")
 txt_dest_path3 = Entry(path_frame3)
 txt_dest_path3.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
