@@ -25,6 +25,8 @@ def btncmd():
         files.append({"type": "롯데온", "file": txt_dest_path6.get()})
     if len(txt_dest_path7.get()) != 0:
         files.append({"type": "ESM+", "file": txt_dest_path7.get()})
+    if len(txt_dest_path8.get()) != 0:
+        files.append({"type": "Talkstore", "file": txt_dest_path8.get()})
 
     if len(files) == 0:
         tkinter.messagebox.showwarning("경고", "파일을 한 개 이상 추가하세요.")
@@ -67,6 +69,9 @@ def open_file(type):
     elif type == "ESM+":
         txt_dest_path7.delete(0, END)
         txt_dest_path7.insert(0, file)
+    elif type == "Talkstore":
+        txt_dest_path8.delete(0, END)
+        txt_dest_path8.insert(0, file)
     elif type == "상품정보":
         product_info_txt_dest_path.delete(0, END)
         product_info_txt_dest_path.insert(0, file)
@@ -143,6 +148,14 @@ txt_dest_path7 = Entry(path_frame7)
 txt_dest_path7.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
 btn_dest_path7 = Button(path_frame7, text="찾아보기", width=10, command=partial(open_file, "ESM+"))
 btn_dest_path7.pack(side="right", padx=5, pady=5)
+
+# Talkstore
+path_frame8 = LabelFrame(main_frame, text="Talkstore")
+path_frame8.pack(fill="both")
+txt_dest_path8 = Entry(path_frame8)
+txt_dest_path8.pack(side="left", fill="x", expand=True, ipady=4, padx=5, pady=5)
+btn_dest_path8 = Button(path_frame8, text="찾아보기", width=10, command=partial(open_file, "Talkstore"))
+btn_dest_path8.pack(side="right", padx=5, pady=5)
 
 # 수정
 product_info_path_frame = LabelFrame(root, text="상품파일경로")

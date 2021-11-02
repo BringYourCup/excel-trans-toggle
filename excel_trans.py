@@ -51,11 +51,13 @@ def excel_trans_print(files, output_path, p_var, progress_bar, product_info_file
             json_file_name = "./mapping/lotte.json"
         elif file["type"] == "ESM+":
             json_file_name = "./mapping/esm+.json"
+        elif file["type"] == "Talkstore":
+            json_file_name = "./mapping/talkstore.json"
 
         with open(resource_path(json_file_name), 'r', encoding='UTF-8') as json_file:
             json_data = json.load(json_file)
         print("1111111111111111")
-        if file["type"] == "11번가":
+        if file["type"] == "12번가":
             df = pd.read_excel(file["file"], 'Sheet1', engine="xlrd", skiprows=1)
         else:
             # openpyxl 사용 버젼
