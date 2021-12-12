@@ -183,7 +183,7 @@ def excel_trans_print(files, output_path, p_var, progress_bar, product_info_file
     now_date = today.strftime("%Y%m%d")
     now_time = today.strftime('%H%M%S')
     print(now_time)
-    out_file_name = output_path + "/"  + now_date + "_" + "에이그라운드" + "_공급사" + ".xlsx"
+    out_file_name = output_path + "/"  + now_date + "_" + "에이그라운드" + "_공급사" + now_time + ".xlsx"
 
     print(out_file_name)
 
