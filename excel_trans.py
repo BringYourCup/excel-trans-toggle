@@ -51,8 +51,10 @@ def excel_trans_print(files, output_path, p_var, progress_bar, product_info_file
             json_file_name = "./mapping/lotte.json"
         elif file["type"] == "ESM+":
             json_file_name = "./mapping/esm+.json"
-        elif file["type"] == "Talkstore":
+        elif file["type"] == "톡스토어":
             json_file_name = "./mapping/talkstore.json"
+        elif file["type"] == "SSG.COM":
+            json_file_name = "./mapping/SSG.json"
 
         with open(resource_path(json_file_name), 'r', encoding='UTF-8') as json_file:
             json_data = json.load(json_file)
@@ -181,7 +183,7 @@ def excel_trans_print(files, output_path, p_var, progress_bar, product_info_file
     now_date = today.strftime("%Y%m%d")
     now_time = today.strftime('%H%M%S')
     print(now_time)
-    out_file_name = output_path + "/toggle_output" + "_" + now_date + "_" + now_time + ".xlsx"
+    out_file_name = output_path + "/"  + now_date + "_" + "에이그라운드" + "_공급사" + ".xlsx"
 
     print(out_file_name)
 
